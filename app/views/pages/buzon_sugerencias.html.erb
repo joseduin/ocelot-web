@@ -1,0 +1,119 @@
+<% content_for :title, 'Contacto, Quejas y Sugerencias | Ocelot' %>
+<div class="main-container">
+			<header class="page-header">
+				<div class="background-image-holder .bg-overlay parallax-background">
+					<%= image_tag 'hero18.jpg', :class => "background-image" %>
+				</div>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<span class="text-white alt-font">Plantea aquí tus</span>
+							<h1 class="text-white">Preguntas, Quejas y Sugerencias</h1>
+							
+						</div>
+					</div><!--end of row-->
+				</div><!--end of container-->
+			</header>
+			
+			<section class="contact-center">
+				<div class="container">
+					
+					<div class="row">
+							<div class="col-sm-3 text-center">
+								<h5>Comuniquese</h5>
+								<p>
+									Por favor si desea, puede dirigirse  a nosotros, enviandonos un correo electrónico y responderemos a su requerimiento inmediatamente nos sea posible.
+								</p>
+							</div>
+							<div class="col-sm-3 text-center">
+								<h5>Detalles</h5>
+								<p class="lead">
+									+ 61 5736 4928<br>
+									info@ocelot.com<br>
+									<br>
+									Universidad Centroccidental "Lisandro Alvarado"<br>
+									Barquisimeto / Lara<br>
+									Venezuela
+								</p>
+							</div>
+						
+						
+						
+					
+							<div class="col-md-6 col-sm-6 ">
+								<h5>Escribe tu mensaje</h5>
+								<div class="form-wrapper clearfix" style="margin-top:0px">
+									<form class="form-contact email-form" id="form1">
+										<div class="inputs-wrapper">
+											<input class="form-email validate-required validate-email" type="text" name="email" placeholder="Correo Electrónico" id="email">
+											<select class="form-control" name="asunto" id="asunto">
+												<option value="Sin Asunto">Asunto: </option>
+												<%= @asunto_comentario.try(:each) do |opt| %>
+											   		   <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+	                              					<%  end %>
+													  
+											</select>
+											
+											<textarea class="form-message validate-required" name="motivo" placeholder="Motivo / Mensaje" id="motivo"></textarea>
+										</div>
+										<input type="button" class="btn btn-primary btn-filled login-button" value="Enviar" id="enviar">
+										<div class="form-success">
+											<span class="text-white">Message sent - Thanks for your enquiry</span>
+										</div>
+										<div class="form-error">
+											<span class="text-white">Please complete all fields correctly</span>
+										</div>
+	
+									</form>
+								</div>
+							</div>
+						</div><!--end of row-->
+				</div><!--end of container-->
+			</section>
+			<section class="map">
+				<div class="map-holder">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25198.35985697838!2d144.979258257672!3d-37.86508725777717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6686626d1c9bf%3A0x24b207169447a3a5!2sClyde+St%2C+St+Kilda+VIC+3182!5e0!3m2!1sen!2sau!4v1405983906843"></iframe>
+				</div>
+			</section>
+		</div>
+		<% content_for :javascript do %>
+		
+		<script>
+			$(document).ready(function(){
+				function registrar_comentario(){
+					/*alert("probando");*/
+					var email=$("#email").val();
+					var orden= $("#orden").val();
+                    var asunto= $("#asunto").val();
+                    var motivo = $("#motivo").val();
+					var datos = {
+	                   email:email,
+	                    orden: orden,
+	                    asunto: asunto,
+	                    motivo : motivo
+                    
+                	};
+                var dir ='/guardar_sugerencia';
+					$.ajax({
+                url: dir,
+                data:datos,
+                success:function(data){
+                    toastr.success("Sugerencia registrada con exito.");
+                    var email=$("#email").val("");
+                    var asunto= $("#asunto").val("Asunto");
+                    var motivo = $("#motivo").val("");
+                },
+                error:function(data){
+                    toastr.error(data.message, "Oops!");
+                }
+            });
+            
+				}
+				$("#enviar").click(function(){
+					registrar_comentario();
+				})
+			});
+		</script>
+		<%end%>
+		

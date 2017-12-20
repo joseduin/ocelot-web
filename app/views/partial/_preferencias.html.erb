@@ -1,0 +1,110 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center bg-white" style="border-radius:30px; padding:30px">
+
+                <div class="row">
+                <strong>Selecciona tipo de inmueble:</strong>
+                </div>
+                <select id="categoriaInmueble" multiple="multiple" style="background:white;">
+                    <%= @categoriaInmueble.try(:each) do |opt| %>
+                        <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                    <%  end %>
+
+                </select>
+
+            <br><br>
+                    <div class="row">
+                    <strong>Características de tu(s) inmueble(s):</strong>
+                    </div>
+                    <select id="tipoCaracteristica" multiple="multiple" style="background:white;">
+                        <%= @tipoCaracteristica.try(:each) do |opt| %>
+                            <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                        <%  end %>
+                    </select>
+        </div><br></br>
+            <div class="col-md-6 col-md-offset-3">
+                <h4 class="text-center" style="margin-top: 30px"><strong>Escoja los servicios de su preferencia dependiendo del tipo mostrado a continuación: </strong></h4>
+            </div>
+        <div class="col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+              <div class="list-group">
+                <% @categoriaServicio.try(:each) do |opt| %>
+
+                    <a href="#" id="categoriaServicio" class="list-group-item active text-center">
+                        <h4 class="icon_toolbox"></h4><br/><%= opt.descripcion%>
+                    </a>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+                
+                <div class="bhoechie-tab-content active">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-6">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @tipoServicios.try(:each) do |opt| %>
+                                <tr>
+                                    <% if opt.categoria_id == 1%>
+                                    <td><label><input type="checkbox" id="1" value="<%= opt.id %>"> <%= opt.descripcion %></label></td>
+                                    <% end %>
+                                </tr>
+                            <%  end %>
+                        </tbody>
+                    </table>
+                </div>
+               
+                <div class="bhoechie-tab-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-6">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @tipoServicios.try(:each) do |opt| %>
+                                <tr>
+                                    <% if opt.categoria_id == 2%>
+                                    <td><label><input type="checkbox" id="2" value="<%= opt.id %>"> <%= opt.descripcion %></label></td>
+                                    <% end %>
+                                </tr>
+                            <%  end %>
+                        </tbody>
+                    </table>
+                </div>
+    
+               
+                <div class="bhoechie-tab-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-6">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @tipoServicios.try(:each) do |opt| %>
+                                <tr>
+                                    <% if opt.categoria_id == 3%>
+                                    <td><label><input type="checkbox" id="3" value="<%= opt.id %>"> <%= opt.descripcion %></label></td>
+                                    <% end %>
+                                </tr>
+                            <%  end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br></br><br></br>
+  </div>
+</div>
+
+<script type="text/javascript">
+        $('#categoriaInmueble').multiselect();
+    $('#tipoCaracteristica').multiselect();
+</script>

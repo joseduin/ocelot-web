@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %></title>
+
+  <meta charset="utf-8">
+  <meta name="description" content="Fox Hound Web">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <%= favicon_link_tag 'ocelot-favicon.png' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+<!-- Wrapper-->
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <%= render partial: 'partial/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Page wrapper -->
+            <!--% render partial: 'topnavbar' %-->
+
+            <!-- Main view  -->
+            <%= csrf_meta_tag %>
+            <%= yield %>
+
+            <!-- Footer -->
+        <%= render partial: 'partial/footer' %>
+        <!--%= render partial: 'partial/modal_servicio' %-->
+
+        </div>
+        <!-- End page wrapper-->
+
+    </div>
+    <!-- End wrapper-->
+    
+    <!-- Include javascript per-view -->
+    <%= yield :javascript %>
+
+</body>
+</html>

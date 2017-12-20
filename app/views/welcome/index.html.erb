@@ -1,0 +1,418 @@
+<% content_for :title, 'Inicio | Ocelot' %>
+
+				<div class="main-container">
+					<section class="hero-slider">
+						<ul class="slides">
+							
+							<% @promociones.try(:each) do |promocion|  %>
+								<li class="overlay ">
+								<div class="background-image-holder .bg-overlay parallax-background">
+
+									<img src="<%= "#{$web_intra_path}/#{promocion.imagenServicio}" %>" class="background-image"></img>
+								</div>
+								<div class="container align-vertical">
+									<div class="row">
+										<div class="col-md-6 col-sm-9">
+											<h1 class="text-white"><strong class=""><%= promocion.titulo %></strong> </h1>
+											<h3 class="text-white"><%= promocion.descripcion %></h3>
+											<br>
+											<%= link_to 'Ver esta promoción', "/single_promocion/#{promocion.id}" , :method=> :get, :class => 'btn btn-primary btn-white', :target => '_blank'%>
+											<%= link_to 'Ver todas', promociones_path , :method=> :get, :class => 'btn btn-primary btn-filled'%>
+										</div>
+									</div>
+								</div><!--end of container-->
+								
+							</li><!--end of individual slide-->
+							<!--end of individual slide-->
+							<% end %>
+						</ul>
+					</section>
+
+
+					<!--          CATALOGO DE SERVICIOS           -->
+					<section id="services" class="blog-masonry bg-muted" style="background: #f4f4f4;">
+							
+							<div class="container ">
+							<div class="row">
+								<h1 class="" align="center" ><i class="icon icon-jumbo icon_tags_alt" style="font-size:30px;"></i><strong> Servicios</strong></h1>
+								
+						
+								
+								<div class="col-sm-3"><!--sidebar-->
+								<%= render partial: 'partial/sidebar_servicios' %>
+								</div><!-- /sidebar-->
+
+								<div id="myUL" class="col-md-9">
+						<div id="cont_servicios" class="blog-masonry-container">
+										
+										
+									<script id="servicios_filtro" type="text/x-handlebars-template">
+									 
+										{{#each servicio}}
+										
+											<div class="col-sm-6 col-md-4 blog-masonry-item limpieza file-box">
+										    <div class="thumbnail item-inner quote-post round-post">
+											   	<a href="" data-toggle="modal" data-target=".bs-service-modal-lg">
+											   		<img src="https://fox-desktop-joseduin.c9users.io/{{imagenServicio}}" style="border-radius: 20px 20px 0px 0px;"></img>
+											   	 
+
+											    </a>
+										      	<div class="caption round-title ">
+											        
+											        <a href="" class="file-name" data-toggle="modal" data-target=".bs-service-modal-lg"><h2><strong>{{titulo}}</strong></h2></a>
+											        <p>{{descripcion}} </p>
+											        
+											        <hr class="spacer-price">
+													<div class="row">
+														<strong class="price-card pull-left">
+															<small>BsF.</small>{{costo}}
+														</strong>
+														<button id="btn-modal-servicio"  class="btn btn-sm btn-primary pull-right" type="button" data-toggle="modal"  onclick="
+																$('#servicio-modal').modal('show');
+																$('.ms_img_servicio').css('background-image', 'url(https://fox-desktop-joseduin.c9users.io/{{imagenServicio}})');
+																$('.ms_codigo').html('{{id}}');
+																$('.ms_titulo').html('<strong>'+'{{titulo}}'+'</strong>');
+																$('.ms_costo').html('{{costo}}' + ' / ' + '{{unidadMedidaDes.descripcion}}');
+																$('.ms_descripcion').html('{{descripcion}}');
+																$('.ms_tservicio').html('{{tipoServicioDes.padre_descripcion}}');
+																$('.ms_tinmueble').html('{{tipoInmuebleServicio}}');
+																
+																">Ver
+																
+													</div>
+											        <!--a href="#" class="btn btn-primary" role="button">Button</a-->
+										      </div>
+										    </div>
+										  </div>
+										  
+									
+									  	{{/each}}
+									</script>
+									
+									
+										
+								<% @servicios.try(:each) do |servicio|  %>		
+								<!--individual post-->
+										<% @id_serv = servicio.id %>
+										<div class="col-sm-6 col-md-4 blog-masonry-item limpieza file-box rails_item">
+										    <div class="thumbnail item-inner quote-post round-post">
+											   	<a href="" data-toggle="modal" data-target=".bs-service-modal-lg">
+											   		<img src="<%= "#{$web_intra_path}/#{servicio.imagenServicio}" %>" style="border-radius: 20px 20px 0px 0px;"></img>
+											   	 
+											   	 	<!--%= image_tag 'img-cleaning.jpg', :style => "border-radius: 20px 20px 0px 0px;" %-->
+											    </a>
+										      	<div class="caption round-title ">
+											        
+											        <a href="" class="file-name" data-toggle="modal" data-target=".bs-service-modal-lg"><h2><strong><%= servicio.titulo %></strong></h2></a>
+											        <p><%= servicio.descripcion %> </p>
+											        <% @url_servicio = "#{$web_intra_path}/#{servicio.imagenServicio}" %>
+											        <hr class="spacer-price">
+													<div class="row">
+														<strong class="price-card pull-left">
+															<small>BsF.</small><%= servicio.costo %>
+														</strong>
+														<button id="btn-modal-servicio"  class="btn btn-sm btn-primary pull-right" type="button" data-toggle="modal"  onclick="
+																$('#servicio-modal').modal('show');
+																$('.ms_img_servicio').css('background-image', 'url(<%= @url_servicio %>');
+																$('.ms_codigo').html('<%= servicio.id %>');
+																$('.ms_titulo').html('<strong>'+'<%= servicio.titulo %>'+'</strong>');
+																$('.ms_costo').html('<%= servicio.costo %>' + ' / ' + '<%= servicio.unidadMedidaDes['descripcion'] %>');
+																$('.ms_descripcion').html('<%= servicio.descripcion %>');
+																$('.ms_tservicio').html('<%= servicio.tipoServicioDes['padre_descripcion'] %>');
+																$('.ms_promocion').html('<%= servicio %>');
+																
+																">Ver
+																<!--
+																$('.ms_tinmueble').html('<!%= servicio.tipoInmuebleServicio %>');
+																$('.ms_categoria').html('<!%= servicio.categoriaDescripcion %>');-->
+														</button><!-- data-target=".bs-service-modal-lg"-->
+														
+													</div>
+											        <!--a href="#" class="btn btn-primary" role="button">Button</a-->
+										      </div>
+										    </div>
+										  </div>
+										  
+								<% end %>
+								<!--end of individual post-->
+
+									</div><!--end of blog masonry container-->
+
+								</div>
+								
+			
+							</div><!--end of row-->
+
+						</div><!--end of container-->
+
+
+		</section>
+					<!--           /CATALOGO DE SERVICIOS         -->
+
+
+		<!--         SECCION DE NOTICIAS           -->
+		<section class="primary-features duplicatable-content">
+						<div class="container">
+							<div class="row">
+
+								<% @noticias.try(:each) do |noticia| %>
+									<div class="col-md-4 col-sm-4 blog-masonry-item development ">
+											<div class="item-inner quote-post " >
+												<div class="post-title blog-round " style="background: url('<%= "#{$web_intra_path}/#{noticia.imgNoticia}" %>');  background-size: cover; background-position: center">
+													<a href="noticia.html"><h1>"<%= noticia.titulo %>"</h1></a>
+													<div class="post-meta">
+										
+														<span class="sub  blog-time"><%= date_convert(noticia.fecha_creacion) %></span>
+													</div>
+													<%= link_to 'Leer mas', "/single_noticia/#{noticia.id}" , :method=> :get, :class => 'link-text'%>
+												</div>
+											</div>
+										</div><!--end of individual post-->
+								<% end %>
+								
+
+							</div><!--end of row-->
+							<div align="center">
+								
+								 <%= link_to 'Mas noticias', noticias_path , :method=> :get, :class => 'btn btn-primary btn-white'%>
+							</div>
+							
+						
+						</div><!--end of container-->
+					</section>
+		<!--        / SECCION DE NOTICIAS           -->			
+
+
+					
+					<section>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center" style="padding-top:60px;">
+									<i class="icon icon-jumbo social_twitter"></i>
+									<div id="tweets" data-widget-id="492085717044981760">
+									
+									</div>
+									<p>
+										Siguenos <strong><a href="#">@ocelot</a></strong> para actualizarte con nuestros servicios
+									</p>
+									
+									</div>
+								<div>
+								<div class="col-md-4   text-center" >
+									<div id="tweets" >
+
+	                                            <a class="twitter-timeline"
+	                                                  href="https://twitter.com/ocelot_info"
+	                                                  data-height="300"
+	                                                  data-chrome="nofooter"
+	                                                  data-link-color="#2B7BB9"
+	                                                  >
+	                                                Tweets by @ocelot
+	                                                </a>
+	                                                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	                                   
+									</div>
+								</div>
+							</div><!--end of row-->
+						</div><!--end of container-->
+					</section>
+				</div>
+					</section>
+
+
+
+ <%= render partial: 'partial/modal_servicio' %>
+
+<script>
+
+	$(document).ready(function(){
+	    filtro();
+	   
+	});
+	
+	var buscarDetalle = function() {
+		$(document).on('click', '#modalConfirmacionBoton', function() {
+	        $.ajax({
+		       url:'/buscarRol',
+		       data:{
+		           id: id
+		       },
+		       success:function(data){
+		           console.log(data);
+		       	    if (data.status == 200) {
+		           	    $("#descripcion").val(data.rol.descripcion).prop('disabled', disable);
+	                    $(".i-checks").iCheck('uncheck').iCheck( disable ? 'disable' : 'enable');
+	                    $.each(data.rol.menu, function( index, value ) {
+	                        console.log(value);
+	                        $(".i-checks[value=" + value + "]").iCheck('check');
+	                    });
+	                    
+	                    $("#modalSimpleFooter").css('display', footerVisible);
+	                    $("#modalSimpleTitulo").html(title);
+	                    $('#modalSimple').modal({ backdrop: 'static', keyboard: false });
+		           } else { toastr.error(data.message, "Oops!"); }
+		       },
+		       error:function(data){ toastr.error(data.message, "Oops!"); }
+		   	});
+		});
+    }
+
+	var filtro = function() {
+			var ti = 0; //tipo inmueble
+			var tc = 0; //tipo caracteristica
+			var ts = 0; //tipo servicio
+			//var json_results;
+		
+			//Si selecciona una opcion de tipo de inmueble, escucha a el valor de las demas opciones
+			$('.select_tipo_inmueble').on('change', function(){
+				   //alert( this.value );
+				ti = $(this).val();
+				tc = $('.tag_categoria_servicio.active').val();
+				ts = $('.tag_tipo_servicio.active').val();
+				
+					//alert(ti+""+tc+""+ts);
+					
+					tribago(ti, ts, tc);
+
+					
+					
+ 
+			});
+			//Si selecciona una opcion de categoria, escucha a el valor de las demas opciones
+		  $('.tag_categoria_servicio').click(function(){
+		    	 //alert($('.select_tipo_inmueble').val());
+		    	ti = $('.select_tipo_inmueble').val();
+		    	tc = $(this).val();
+				ts = $('.tag_tipo_servicio.active').val();
+					//alert(ti+""+tc+""+ts);
+					
+					tribago(ti, ts, tc);
+					
+
+					
+		    });
+		  	//Si selecciona una opcion de tipo de servicio, escucha a el valor de las demas opciones
+			$('.tag_tipo_servicio').click(function(){
+		    	 //alert($('.select_tipo_inmueble').val());
+		    
+				ti = $('.select_tipo_inmueble').val();
+				tc = $('.tag_categoria_servicio.active').val();
+				ts = $(this).val();
+					//alert(ti+""+tc+""+ts);
+					
+					tribago(ti, ts, tc);
+
+					
+					
+		    });
+		   //mandamos los valores de las opciones a la funcion tribago
+	
+		}
+
+	
+	var tribago = function(ti, ts, tc) {//filtro con ajax que consulta la busqueda en servidor segun los parametros
+            
+            var tipoInmueble = ti;
+	        var tipoServicio = ts;
+	        var tipoCategoria = tc;
+	        var json_results;
+	        
+            console.log("tipoInmueble ->" + tipoInmueble,"tipoCategoria ->"+tipoCategoria, "tipoServicio ->"+tipoServicio);
+             
+
+	        $.ajax({
+	            url:'/tribago',
+                data: {
+                    tipoInmueble: tipoInmueble,
+                    tipoServicio: tipoServicio,
+                    tipoCategoria: tipoCategoria
+                },
+               // processData: false,
+               // contentType: false,
+               
+	            success:function(data){
+	            	if (data.status == 200) {
+	           	    
+	           	    	//$("#cont_servicios").empty();
+	           	    	
+	           	    	//$(".rails_item").remove();
+	           	    	$(".file-box").remove();
+	           	    	json_results = data.servicios;
+	           	    	console.log("aqui comienza el test");
+	           	    	console.log(json_results);
+	           	    	console.log("aqui termina el test");
+	           	    	handlebars(json_results);
+	           	    	$("#cont_servicios").reload();
+	           	    //	$("#cont_servicios").fadeOut(200, function(){
+                    //        $("#cont_servicios").html().fadeIn.delay(300);//fadeIn().delay(1000);
+	           	    //	});
+	           	    	//$("#cont_servicios").load(".file-box");
+	           	    	
+	           	    	$.each(data.servicios, function(key,val) {
+                           console.log(val.titulo);
+                           console.log(key);
+
+							
+                       });
+	         			console.log(data.servicios);
+
+	           	    console.log("envio de datos exitoso");
+	           	   
+	           } else {
+	            	console.log("envio de datos fallido");
+	            }
+	            },
+	            error:function(data){
+	                console.log("error, envio de datos fallido");
+	            }
+	        });
+       
+    }
+    
+    
+/*****************************Metodos de Handlebars js**********************************************/		
+	
+		
+	var handlebars = function(json){//Metodo de Handlebars.js para mostrar el json del filtro de servicios
+			var template = document.getElementById('servicios_filtro').innerHTML;
+			var compile = Handlebars.compile(template);
+			var datax ={ 
+					"servicio":json
+							
+				
+			};
+
+			var compiledHTML = compile(datax);
+			document.getElementById('cont_servicios').innerHTML += compiledHTML;
+                           
+	}
+/*****************************FIN de Metodos de Handlebars js**********************************************/
+    
+</script>
+<script>
+
+function myFunction() {
+    var input, filter, divG, fileName, span, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    divG = document.getElementById("myUL");
+    fileName = divG.getElementsByClassName("file-name");
+    fileBox = divG.getElementsByClassName("file-box");
+    for (i = 0; i < fileName.length; i++) {
+        span = fileName[i].getElementsByTagName("strong")[0];
+        
+        if (span.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            fileName[i].style.display = "";
+            fileBox[i].style.display = "";
+            
+        } else {
+            fileName[i].style.display = "none";
+            fileBox[i].style.display = "none";
+            
+
+        }
+    }
+    
+}
+
+</script>

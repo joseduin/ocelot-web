@@ -1,0 +1,69 @@
+		    	<div class="loader">
+		    		<div class="spinner">
+					  <div class="double-bounce1"></div>
+					  <div class="double-bounce2"></div>
+					</div>
+		    	</div>
+						
+				<div class="nav-container">
+					<nav class="top-bar">
+						<div class="container">
+						
+							<div class="row utility-menu">
+								<div class="col-sm-12">
+									<div class="utility-inner clearfix">
+										<div class="pull-right">
+											<% if session[:id].nil? %>
+												<%= link_to 'Ingresar', login_path , :method=> :get, :class => 'btn btn-primary login-button btn-xs'%>
+												<%= link_to 'Registrarse', registration_path , :method=> :get, :class => 'btn btn-primary btn-filled btn-xs'%>
+											<% else %>
+												<%= link_to 'Dashboard', $web_intra_path, :method=> :get, :class => 'btn btn-primary login-button btn-xs'%>
+												<%= link_to 'Cerrar Sesión', log_out_web_path, :method=> :get, :class => 'btn btn-primary btn-filled btn-xs'%>
+											<% end %>
+										</div>
+									</div>
+								</div><!--end of row-->
+						
+						
+							<div class="row nav-menu">
+								<div class="col-sm-3 col-md-2 columns">
+										<%= link_to root_path, :method=> :get do %>
+											<%= image_tag ("ocelot-imagotipo-white.png"), :class => 'logo logo-light', :style =>"max-width: 200px;" %>
+											<%= image_tag ("ocelot-imagotipo.png"), :class => 'logo logo-dark', :style =>"max-width: 200px;" %>
+										<% end %>
+								</div>
+							
+								<div class="col-sm-9 col-md-10 columns">
+									<ul class="menu pull-right">
+										<li>
+											<%= link_to 'INICIO', root_path , :method=> :get%>
+										</li>
+										<li>
+										    <%= link_to 'Servicios', servicios_path , :anchor => "services", :method=> :get%>
+										</li>
+										<li>
+											<%= link_to 'Promociones', promociones_path , :method=> :get%>
+										</li>
+										<li>
+											<%= link_to 'Noticias', noticias_path , :method=> :get%>
+										</li>
+										<li><%= link_to 'Nosotros', nosotros_path , :method=> :get%>
+										</li>
+										<li><%= link_to 'App Movil', app_movil_path , :method=> :get%>
+										</li>
+										<li><%= link_to 'Contacto', buzon_sugerencias_path , :method=> :get%>
+										</li>
+										
+									</ul>
+
+									
+								</div>
+							</div><!--end of row-->
+							
+							<div class="mobile-toggle">
+								<i class="icon icon_menu"></i>
+							</div>
+							
+						</div><!--end of container-->
+					</nav>
+				</div>

@@ -1,0 +1,495 @@
+<% content_for :title, 'Registrate | Ocelot' %>
+<div class="main-container">
+    <div class="container photo-form-wrapper ">
+    	<div class="row">
+            <div id="web-registro" class="background-image-holder .bg-overlay parallax-background overlay">
+                <%= image_tag 'bgocelotgreenlight.jpg', :class => "background-image" %>
+            </div>
+    		<section>
+                <div>                    
+                    <h1 class="text-white text-center">Regístrate 
+                    <a class="text-white" style="font-size:20px;" data-toggle="modal" data-target=".modal-why"><span aria-hidden="true" class="icon_question_alt2"></span></a></h1>
+
+                </div>
+            <div id="wizard" class="wizard">
+                <div class="wizard-inner">
+                    <div class="connecting-line"></div>
+                    <ul class="nav nav-tabs" role="tablist">
+
+                        <li role="presentation" class="active">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Datos Basicos">
+                                <span class="round-tab">
+                                    <i class=" icon_id"></i>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="disabled">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Ubicacion">
+                                <span class="round-tab">
+                                    <i class="icon_house "></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Preferencias">
+                                <span class="round-tab">
+                                    <i class="icon_like"></i>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="disabled">
+                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Completado">
+                                <span class="round-tab">
+                                    <i class="icon_check "></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <form role="form" id="form">
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="step1"> <!--COMIENZO PASO 1-->
+                            <div id="paso1" class="step1">
+                                <div class="row text-center">
+                                    <h3 class=""><strong>Datos Básicos</strong></h3>
+                                    <br>
+                                </div>                                
+                                <div class="row">
+                                    <div class="col-md-1 col-md-offset-2">
+                                        <select id="tipoPersona" class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option value="0">V: </option>
+                                                <option value="1">J: </option>
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label >Número de Cédula/RIF</label>
+                                        <input class="form-contact required" id="indentificacion" placeholder="Cedula/RIF" >
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label >Nombre Completo</label>
+                                        <input class="form-contact" id="nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-md-4 col-md-offset-2">
+                                        <label >Fecha de Nacimiento</label>
+                                        <input type="date" class="form-contact" id="fecha_de_nacimiento" placeholder="DD/MM/AAAA">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label >Número de Teléfono</label>
+                                        <input type="email" class="form-contact" id="telefono" placeholder="Teléfono">
+                                    </div>
+                                </div>    
+                                <div class="row"> 
+                                    <div class="col-md-2  col-md-offset-2">
+                                        <select id="sexo" placeholder="Profesión: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option value="">Sexo: </option>
+                                                <option value= "M">Masculino</option>
+                                                <option value= "F">Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="profesion" data-placeholder="Profesión: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                            <option >Profesión:</option>
+                                           <%= @profesion.try(:each) do |opt| %>
+                                                <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                                            <%  end %>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="ocupacion" placeholder="Ocupacion: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                            <option>Ocupación: </option>
+                                           <%= @ocupacion.try(:each) do |opt| %>
+                                                <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                                            <%  end %>
+                                        </select>
+                                    </div>
+                                </div>                            
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-2">
+                                        <label >Correo Electrónico</label>
+                                        <input type="email" class="form-contact required" id="email" placeholder="Correo Electrónico">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label >Confirma Correo Electrónico</label>
+                                        <input type="email" class="form-contact" id="emailConfirm" placeholder="Confirma Correo Electrónico">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-2">
+                                        <label >Contraseña</label>
+                                        <input type="password" class="form-contact" id="password" placeholder="Contraseña">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label >Confirma Contraseña</label>
+                                        <input type="password" class="form-contact" id="passwordConfirm" placeholder="Confirma Contraseña">
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" id="btn-1" class="btn btn-primary btn-filled">Guardar y continuar</button></li>
+                            </ul>
+                        </div> <!-- FIN PASO 1-->
+
+                        <div class="tab-pane" role="tabpanel" id="step2"> <!--COMIENZO PASO 2-->
+                            <div class="row text-center">
+                                <h3><strong>Datos de Ubicación</strong></h3>
+                            </div>
+                            <div class="text form-wrapper">
+                                        <div class="col-md-4 col-md-offset-4">
+                                            <select id="estado" data-placeholder="Estado: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option>Estado: </option>
+                                           <%= @estado.try(:each) do |opt| %>
+                                                <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                                            <%  end %>
+
+                                        </select>
+                                         </select>
+                                            <select id="ciudad" placeholder="Ciudad: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option>Ciudad:</option>
+                                        </select>
+                                            <select id="municipio" placeholder="Municipio: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option>Municipio:</option>
+                                            </select>                                                  
+                                            <select id="parroquia" placeholder="Parroquia: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option>Parroquia:</option>
+                                        </select>
+                                                  
+                                            <select id="sector" placeholder="Sector: " class="select form-control form-wrapper" tabindex="2" style="text-align: left;">
+                                                <option>Sector:</option>
+                                        </select>
+                                                  
+                                        </div>
+
+                                        <div class="col-md-8 col-md-offset-2" style="margin-top: 30px">
+                                            <input class="form-email validate-required validate-email" type="text" placeholder="Dirección" name="email" id="direccion">
+                                        </div>
+                                    </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                                <li><button type="button" class="btn btn-primary next-step1 btn-filled">Guardar y continuar</button></li>
+                            </ul>
+                        </div> <!-- FIN PASO 2 -->
+
+                        <div class="tab-pane" role="tabpanel" id="step3"> <!-- COMIENZO PASO 3 -->
+                            <div class="row">
+                                <h3 class="text-center">Gustos y Preferencias</h3>
+                                <br>
+                            </div>
+                            <div class="form-wrapper">
+                                       
+                                       <%= render partial: 'partial/preferencias' %>
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                                <li><button type="button" id="completo" class="btn btn-primary btn-info-full btn-filled">Guardar y continuar</button></li>
+                            </ul>
+                        </div> <!-- FIN PASO 3-->
+                        <div class="tab-pane" role="tabpanel" id="complete" style="height:500px;">
+                            <div class="jumbotron text-black" align="center" style="background:transparent;">
+                             <div class="col-md-8 col-md-offset-2" style="background:white; border-radius:50px;padding:30px;box-shadow: 5px 5px 15px #848484">
+                              <h2><strong>Registro Completado</strong></h2>
+                              <p>Su registro ha sido procesado con éxito.</p>
+                              <p><%= link_to 'Ingresar', login_path , :method=> :get, :class => "btn btn-primary btn-lg btn-filled"%>
+                              </div>   
+                            </div>
+                            <!--div class="col-xs-offset-4" style="padding-top:150px;">
+                            <h1><strong>Registro Completado</strong></h1>
+                            <p>Su registro ha sido procesado con éxito.</p>
+                            </div-->
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- FIN TAB CONTENT-->
+                </form><!-- FIN PASOS-->
+            </div><!-- FIN TABLA PASOS-->
+        </section>
+       </div>
+    </div>
+</div>
+<!-- Small modal -->
+
+
+<div class="modal fade modal-why" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" align="center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= image_tag 'ocelot-favicon.png',:class => "favicon", :style => "width: 30px;" %>
+        <h4 class="modal-title" id="gridSystemModalLabel">¿Por que registrarse?</h4>
+      </div>
+        <div class="modal-body">
+        Al registrarte podrás solicitar los servicios de tu preferencia y mantenerte actualizado sobre el estado de los mismos.
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-10">
+          <button class="btn btn-primary pull-right"  data-dismiss="modal">cerrar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %> 
+<script type="text/javascript">
+    $( document ).ready(function() {
+
+        validar();
+        $('.modal-why').modal('show');
+    });
+
+      $('#completo').click(function(){
+            var tipoPersona = $('#tipoPersona').val();
+            var cedula = $('#indentificacion').val();
+            var nombre = $('#nombre').val();
+            var fecha_de_nacimiento = $('#fecha_de_nacimiento').val();
+            var telefono = $('#telefono').val();      
+            var sexo = $('#sexo').val();
+            var profesion = $('#profesion').val();
+            var ocupacion = $('#ocupacion').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+
+            //datos de ubicacion
+            var sector = $('#sector').val();
+            var direccion = $('#direccion').val();
+
+            //datos de preferencias
+            var categoriaInmueble = $('#categoriaInmueble').val();
+            var tipoCaracteristica = $('#tipoCaracteristica').val();
+            var tipoServicio1 = $('#1').val();
+            var tipoServicio2 = $('#2').val();
+            var tipoServicio3 = $('#3').val();
+            var tipoServicio = [tipoServicio1, tipoServicio2, tipoServicio3]
+           
+            //configuracion del sistema
+            var rol = (1);
+            var tokenMovil = ("null");
+            var tipoCliente = (2);
+            var estatus = (0);
+
+            
+             $.ajax({
+                url:'/guardar',
+                data:{
+                    nombre: nombre,
+                    sexo: sexo,
+                    tipoPersona: tipoPersona,
+                    cedula: cedula,
+                    direccion: direccion,
+                    sector: sector,
+                    telefono: telefono,
+                    fecha_de_nacimiento: fecha_de_nacimiento,
+                    email: email,
+                    password: password,
+                    rol: rol,
+                    tokenMovil: tokenMovil,
+                    tipoCliente: tipoCliente,
+                    estatus: estatus,
+                    clienteProfesion: profesion,
+                    clienteOcupacion: ocupacion,
+                    categoriaInmueble: categoriaInmueble,
+                    tipoCaracteristica: tipoCaracteristica,
+                    tipoServicio: tipoServicio
+                },
+                success:function(data){
+                    toastr.success(data.message, "Ya puede iniciar sesion.");
+                    proximo();
+                },
+                error:function(data){
+                    toastr.error(data.message, "Oops!");
+                }
+            });
+        });
+
+    var validar = function(){
+        $(document).on('click', '#btn-1',function(ev) {
+            var email = $("#email").val();
+            var indentificacion = $("#indentificacion").val();
+            var tipoPersona = $('#tipoPersona').val();
+            
+            $.ajax({
+                    url:'/validar_cliente',
+                    data:{                   
+                        email: email,
+                        tipoPersona: tipoPersona,
+                        cedula: indentificacion,              
+                    },
+                    success:function(data){
+                        if (data.message.clientes.message == "falso"){
+                            toastr.success("Valido");
+                            proximo();
+                      }  else {
+                            toastr.error("Oops!", "Correo/Cedula ya se encuentra registrado.");
+                      }
+                    },
+                    error:function(data){
+                        toastr.error(data.message, "Oops!");
+                    }
+                });
+        })
+    }
+
+    var proximo = function(){
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
+    }
+
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+    $(document).ready(function(){
+        cambiarChosenEstado();   
+        cambiarChosenCiudad();   
+        cambiarChosenMunicipio();
+        cambiarChosenParroquia();
+    });
+
+     //seleccionar ciudad
+ var cambiarChosenEstado = function() {
+    $('#estado').on('change', function(e) {
+        $.ajax({
+        url:"/buscarCiudadPorEstado",
+                data:{
+                    url: "ciudad/estado/" + $(this).val() +"/buscarPorEstado"
+                },
+                success:function(data){
+                    $("#ciudad").empty().trigger("chosen:updated");
+                    $("#ciudad").append("<option value>Ciudad:</option>");
+                    $.each(data.ciudad, function(key,val) {                  
+                        $("#ciudad").append("<option value=\""+val.id+"\">"+val.descripcion+"</option>");
+                    }); 
+                    $("#ciudad").trigger("chosen:updated");                    
+                },             
+                error:function(data){
+                }
+            });
+        });      
+ }//fin
+
+ // seleccionar municipio 
+var cambiarChosenCiudad = function(){
+    $('#ciudad').on('change',function(e){
+       $.ajax({           
+           url:"/buscarMunicipioPorCiudad",
+          data:{
+                    url: "municipio/ciudad/" + $(this).val() +"/buscarPorCiudad"
+                },
+            success:function(data){
+                 $("#municipio").empty().trigger("chosen:updated");
+                 $("#municipio").append("<option value>Municipio:</option>");
+                   $.each(data.municipio, function(key,val) {                       
+                       $("#municipio").append("<option value=\""+val.id+"\">"+val.descripcion+"</option>");
+                   });                   
+                   $("#municipio").trigger("chosen:updated");                 
+            },                
+            error:function(data){               
+            }                
+       });        
+    });    
+} //Fin function
+
+// seleccionar parroquia 
+var cambiarChosenMunicipio = function(){
+    $('#municipio').on('change',function(e){
+       $.ajax({
+           
+           url:"/buscarParroquiaPorMunicipio",
+          data:{
+                    url: "parroquia/municipio/" + $(this).val() +"/buscarPorMunicipio"
+                },
+            success:function(data){
+                 $("#parroquia").empty().trigger("chosen:updated");
+                 $("#parroquia").append("<option value>Parroquia:</option>");
+                   $.each(data.parroquia, function(key,val) {                       
+                       $("#parroquia").append("<option value=\""+val.id+"\">"+val.descripcion+"</option>");
+                   });                   
+                   $("#parroquia").trigger("chosen:updated");                 
+            },                
+            error:function(data){               
+            }                
+       });        
+    });    
+} //Fin function 
+
+// seleccionar sector 
+var cambiarChosenParroquia = function(){
+    $('#parroquia').on('change',function(e){
+       $.ajax({
+           
+           url:"/buscarSectorPorParroquia",
+          data:{
+                    url: "sector/parroquia/" + $(this).val() +"/buscarPorParroquia"
+                },
+            success:function(data){
+                 $("#sector").empty().trigger("chosen:updated");
+                 $("#sector").append("<option value>Sector:</option>");
+                   $.each(data.sector, function(key,val) {                       
+                       $("#sector").append("<option value=\""+val.id+"\">"+val.descripcion+"</option>");
+                   });                   
+                   $("#sector").trigger("chosen:updated");                 
+            },                
+            error:function(data){            
+            }                
+       });        
+    });    
+} //Fin function 
+    
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+
+    //Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+
+    
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+        var $target = $(e.target);
+    
+        if ($target.parent().hasClass('disabled')) {
+            return false;
+        }
+    });
+     $(".next-step1").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
+
+    });
+    $(".prev-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
+
+    });
+
+
+
+    function nextTab(elem) {
+        $(elem).next().find('a[data-toggle="tab"]').click();
+    }
+    function prevTab(elem) {
+        $(elem).prev().find('a[data-toggle="tab"]').click();
+    }
+
+    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
+</script>
+<% end %>

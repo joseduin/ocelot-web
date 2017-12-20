@@ -1,0 +1,53 @@
+
+<% content_for :title, 'Noticias | Ocelot' %>
+	<div class="main-container">
+		<header class="page-header">
+			<div class="background-image-holder .bg-overlay parallax-background">
+				<%= image_tag 'side2.jpg', :class => "background-image" %>
+			</div>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 alt-font">
+						<h1 class="text-white">Noticias</h1>
+						<p class="text-white lead">Enterate de las últimas <br>novedades en nuestra <br>organización.</p>
+					</div>
+				</div><!--end of row-->
+			</div><!--end of container-->
+		</header>
+	
+	<section class="blog-list-3 bg-white">
+		
+		<% @noticias.try(:each) do |noticia| %>
+			<div class="blog-snippet-3">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-offset-2 col-md-3">
+							<figure>
+								<img src="<%= "#{$web_intra_path}/#{noticia.imgNoticia}" %>"></img>
+							</figure>
+						</div>
+						<div class="col-md-6 col-sm-8">
+
+							<h1><a>
+								<%= link_to noticia.titulo, "/single_noticia/#{noticia.id}" , :method=> :get %>
+							</a></h1>
+							<p class="lead">
+								<%= noticia.descripcion %>
+							</p>
+							<i class="icon icon_calendar"></i><span class="alt-font">Publicado <%= date_convert(noticia.fecha_creacion) %></span><br>
+							<!--<i class="icon icon_clock_alt"></i><span class="alt-font">5 minute read</span>-->
+						</div>
+
+					</div><!--end of row-->
+				</div><!--end of container-->	
+			</div><!--end of blog-snippet-3-->
+		<% end %>
+			
+		</section>	
+	</div>
+	<script>
+		function formato_fecha(d) {
+		    return d.substring(8, 10) + "/" + d.substring(5, 7) + "/" + d.substring(0, 4);
+		}
+	</script>

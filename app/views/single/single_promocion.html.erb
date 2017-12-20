@@ -1,0 +1,62 @@
+<% content_for :title, 'Promocion | Ocelot' %>
+		<div class="main-container">
+			<header class="title header-promocion">
+					<div class="background-image-holder parallax-background">
+						<img src="<%= "#{$web_intra_path}/#{@promocion.imagenServicio}" %>" class="background-image"></img>
+					</div>
+					
+					<div class="container align-bottom">
+						<div class="row">
+							<div class="col-xs-12">
+								<h1 class="text-white"><strong><%= @promocion.titulo %></strong></h1>
+								<span class="sub alt-font text-white">Del <%= date_convert(@promocion.fecha_inicio) %></span>
+								<span class="sub alt-font text-white">Al <%= date_convert(@promocion.fecha_caducidad) %></span>
+
+								
+							</div>
+						</div><!--end of row-->
+					</div><!--end of container-->
+			</header>
+			
+			<section class="article-single">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+							<div class="article-body">
+								<p class="lead">
+									<%= @promocion.titulo %>
+								</p>
+							
+								<p>
+									<%= @promocion.descripcion %>
+								</p>
+
+								<ul class="lead">
+                                    <li><strong>Descuento:</strong> <span id="descuento_servicio"></span><span>%</spam></li>
+								</ul>
+								
+							</div><!--end of article body-->
+
+						</div>
+					</div><!--end of row-->
+					
+					<!--div class="row" align="center">
+						<h1>Servicios relacionados</h1>
+						<div class="col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">
+							
+							<!%= render partial: 'partial/servicio' %>
+						</div>
+					</div><!--end of row-->
+					<script>
+						$(document).ready(function(){
+						var descuento= 	100 * <%= @promocion.descuento_procentaje %>;
+						$("#descuento_servicio").html(descuento);
+						})
+					</script>
+
+					
+				</div><!--end of container-->	
+			</section>
+		</div>
+		
+		<%= render partial: 'partial/modal_servicio' %>

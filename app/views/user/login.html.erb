@@ -1,0 +1,79 @@
+		<div class="main-container">
+			<section class="no-pad login-page fullscreen-element">
+			
+				<div class="background-image-holder no-overlay">
+				    <%= image_tag 'hero6.jpg', :class => "background-image" %>
+				</div>
+			
+				<div class="container align-vertical">
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+							<h1 class="text-white">Inicia Sesión para continuar</h1>
+							<div class="photo-form-wrapper clearfix">
+								<form>
+									<input id="email" class="form-email" type="text" placeholder="Correo Electronico">
+									<input id="clave" class="form-password" type="password" placeholder="Contraseña">
+									<!--input class="login-btn btn-filled" type="submit" value="Ingresar"-->
+									<button id="ingresar" class="btn login-btn btn-filled text-white">Ingresar</button>
+									
+								</form>
+							</div><!--end of photo form wrapper-->
+							<a href="registro.html" class="text-white">Regístate ➞</a><br>
+							<a href="#" class="text-white">¿Olvidaste tu contraseña?</a>
+						</div>
+					</div><!--end of row-->
+				</div><!--end of container-->
+			</section>
+		</div>
+		
+		
+	<!-- Hidden Form -->
+	<form style="display: hidden" action="<%= $web_intra_path %>login" method="POST" id="form">
+	  	<input type="hidden" id="id" name="id" value=""/>
+	  	<input type="hidden" id="token" name="token" value=""/>
+	</form>
+	
+		
+<% content_for :javascript do %>
+<script type="text/javascript">
+    
+    $(function() {
+    	login();
+    });
+    
+    var login = function() {
+    	$(document).on('click', '#ingresar', function(ev) {
+    		ev.preventDefault();
+
+	        var email = $("#email").val();
+	        var clave = $("#clave").val();
+	        $.ajax({
+	            url:'/iniciar_sesion',
+	            data:{
+	                email: email,
+	                clave: clave
+	            },
+	            success:function(data){
+	            	if (data.status == 200) {
+
+	            		$("#id").val(data.id);
+						$("#token").val(data.token);
+						$("#form").submit();
+						
+	            		//$('<form action="form2.html"></form>').appendTo('body').submit();
+	                	//document.location.href ="<%= $web_intra_path %>login/" + data.id + "/" + data.token;  
+
+
+	            	} else {
+	            		toastr.error(data.message, "Email o contraseña erroneos");
+	            	}
+	            },
+	            error:function(data){
+	                toastr.error(data.message, "Email o contraseña erroneos");
+	            }
+	        });
+    	});
+    }
+    
+</script>
+<% end %>

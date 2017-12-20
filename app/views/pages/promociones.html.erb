@@ -1,0 +1,76 @@
+<% content_for :title, 'Promociones | Ocelot' %>
+		<div class="main-container">
+			<header class="page-header">
+				<div class="background-image-holder parallax-background">
+				    <%= image_tag 'hero23.jpg', :class => "background-image" %>
+				</div>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<span class="text-white alt-font">Enterate de nuestas</span>
+							<h1 class="text-white">Promociones</h1>
+							
+						</div>
+					</div><!--end of row-->
+				</div><!--end of container-->
+			</header>
+			
+			<section class="blog-masonry bg-muted">
+			
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<ul class="blog-filters">
+								<li data-filter="*" class="active">Todas</li>
+								<li data-filter=".instalacion">Instalación</li>
+								<li data-filter=".mantenimiento">Mantenimiento</li>
+								<li data-filter=".limpieza">Limpieza</li>
+								<li data-filter=".limpieza">Reparación</li>
+							</ul>
+						</div>
+					</div><!--end of row-->
+				</div><!--end of container-->
+				
+				<div class="container">
+					<div class="row">
+						<div class="blog-masonry-container">
+							
+						<% @promociones.try(:each) do |promocion|  %>
+							<div class="col-md-4 col-sm-6 blog-masonry-item instalacion">
+								<div class="item-inner">
+									<a href="promocion.html">
+										<img src="<%= "#{$web_intra_path}/#{promocion.imagenServicio}" %>"></img>
+									</a>
+									<div class="post-title">
+										<%= link_to "/single_promocion/#{promocion.id}", :method=> :get do %>
+											<h2><strong><%= promocion.titulo %></strong></h2>
+										<% end %>
+											<%= promocion.descripcion %>
+										</p>
+										<div class="post-meta">
+											<span class="sub alt-font"><%= date_convert(promocion.fecha_inicio) %></span>
+											<span class="sub alt-font"><%= date_convert(promocion.fecha_caducidad) %></span>
+
+											<!--span class="sub alt-font">del 26 de agosto de 2017</span>
+											<span class="sub alt-font">al 30 de agosto de 2017</span-->
+										</div>
+										<%= link_to 'Leer mas', "/single_promocion/#{promocion.id}", :method=> :get, :class => 'link-text'%>
+									</div>
+								</div>
+							</div><!--end of individual post-->
+							
+							<% end %>
+						
+						
+						
+							
+
+						</div><!--end of blog masonry container-->
+					</div><!--end of row-->
+				</div><!--end of container-->
+			
+		
+				
+			</section>
+		</div>

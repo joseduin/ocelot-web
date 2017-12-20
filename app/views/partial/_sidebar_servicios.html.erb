@@ -1,0 +1,74 @@
+								
+									<div class="blog-sidebar">
+										<div class="sidebar-widget">
+
+										<form class="form-inline">
+										  <div class="form-group">
+										  	<h5>Buscar Servicios</h5>
+										  	<div class="input-group-btn search-group">
+										      <input type="text"  class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Buscar">
+										      <button class="btn btn-default " type="button"><i class="icon icon_search"></i></button>
+										      </div>
+										      <br>
+										   </div>
+										    <h5>Tipo de Inmueble</h5>
+										    <select class="form-control select_tipo_inmueble" style="width:100%;">
+										   		<option value="0">Todos</option>
+										   		<%= @tipo_inmueble.try(:each) do |opt| %>
+										   		   <option value="<%= opt.id %>"><%= opt.descripcion %></option>
+                              					<%  end %>
+                              				</select>
+											  	<!--option>Edificio</option>
+											  	<option>Casa</option>
+											  	<option>Apartamento</option--> 
+										 </form>
+										
+										<br>
+							
+											<h5>Categorías</h5>
+											<div class="left_contentlist">
+												<div class="itemconfiguration">
+													<ul class="blog-filters" >
+														<li data-filter="*" class="tag_categoria_servicio active" value="0">Todos <i class="icon arrow_right"></i></li>
+														<% @categorias.try(:each) do |categoria|  %>
+															<li class="tag_categoria_servicio"   value="<%= categoria.id %>"><%= categoria.descripcion %><i class="icon arrow_right"></i></li>
+														<% end %>
+														
+														
+													</ul>
+												</div>
+											</div>
+											<h5>Tipo de servicio</h5>
+											<div class="left_contentlist" style="height:150px; ">
+												<div class="">
+													<ul class="tags blog-filters">
+														<li data-filter="*" class="tag tag_tipo_servicio active" value="0"><label>Todos</label></li>
+														<% @tipo_servicios.try(:each) do |tipo_servicio|  %>
+															<li data-filter="" class="tag tag_tipo_servicio" value="<%= tipo_servicio.id %>"><label><%= tipo_servicio.descripcion %></label></li>
+														<% end %>
+														
+													</ul>
+												</div>
+											</div>
+											<!--div>
+												<div class="post-title card-registration" style="padding-top:30px; padding-bottom:20px; background: url(<!%= asset_path 'hero15.jpg' %>);  background-size: cover; background-position: center">
+													
+													<h4><strong>Regístrate ahora para solicitar un servicio</strong></h4>
+													<!--%= link_to 'Registrarse', registration_path , :method=> :get, :class => 'btn btn-primary btn-filled btn-xs'%>
+												</div>
+											</div-->
+											<br><br><br>
+											
+										<div class="col-md-12" style="padding-left:0px; padding-right:0px;">
+											<div class="item-inner quote-post " >
+												<div class="post-title card-registration text-center text-white" style="background: url(<%= asset_path 'bgocelotgreen.jpg' %>);background-size: cover; background-position: center; ">
+													<h4 class="text-white"><strong>Regístrate ahora para solicitar un servicio</strong></h4><br>
+													<%= link_to 'Registrarse', registration_path , :method=> :get, :class => 'btn btn-primary btn-filled btn-xs'%>
+												</div>
+											</div>
+										</div>
+										
+										
+										</div>
+
+									</div>
